@@ -1,8 +1,10 @@
+asteroidit
 *.slo
 *.lo
 *.o
 *.png
 *.ttf
 *.jpg
+*.gch
 *~
 
