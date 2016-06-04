@@ -70,7 +70,7 @@ Player::Player()
 	_keyBinding[sf::Keyboard::Right] = TurnRight;
 	_keyBinding[sf::Keyboard::Up] = Accelerate;
 	_keyBinding[sf::Keyboard::Down] = SlowDown;
-	_keyBinding[sf::Keyboard::Space] = Shoot;
+	//_keyBinding[sf::Keyboard::Space] = Shoot;
 
 	// Set initial action bindings
 	initializeActions();
@@ -150,7 +150,7 @@ bool Player::isRealtimeAction(Action action)
 	case TurnRight:
 	case Accelerate:
 	case SlowDown:
-	case Shoot:
+	//case Shoot:
 		return true;
 
 	default:

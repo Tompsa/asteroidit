@@ -18,7 +18,6 @@ public:
 		TurnRight,
 		Accelerate,
 		SlowDown,
-		Shoot,
 		ActionCount
 	};
 

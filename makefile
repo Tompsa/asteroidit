@@ -10,7 +10,12 @@ CFLAGS=-c -g -Wall -Wextra -std=c++0x -pedantic
 LIBS=-lsfml-graphics -lsfml-window -lsfml-system
 
 #Source files
-SOURCES=Application.cpp Ship.cpp Command.cpp CommandQueue.cpp Entity.cpp GameState.cpp LoadingState.cpp  Main.cpp MenuState.cpp PauseState.cpp ParallelTask.cpp Player.cpp SceneNode.cpp SpriteNode.cpp State.cpp StateStack.cpp TitleState.cpp Utility.cpp World.cpp
+SOURCES=Application.cpp Button.cpp Ship.cpp Command.cpp CommandQueue.cpp \
+Component.cpp Container.cpp Entity.cpp GameState.cpp \
+Label.cpp Main.cpp MenuState.cpp PauseState.cpp \
+Player.cpp SceneNode.cpp SettingsState.cpp \
+SpriteNode.cpp State.cpp StateStack.cpp TitleState.cpp \
+Utility.cpp World.cpp
 
 #Object files
 OBJECTS=$(SOURCES:.cpp=.o)

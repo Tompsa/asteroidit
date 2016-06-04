@@ -18,6 +18,9 @@ namespace Textures
 		Asteroid,
 		Space,
         TitleScreen,
+        ButtonNormal,
+		ButtonSelected,
+		ButtonPressed
 	};
 }
 
