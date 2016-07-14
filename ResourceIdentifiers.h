@@ -16,6 +16,7 @@ namespace Textures
 		Spaceship,
 		AlienShip,
 		Asteroid,
+        AsteroidShard,
         Bullet,
 		Space,
         TitleScreen,

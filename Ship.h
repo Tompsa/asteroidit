@@ -22,7 +22,7 @@ public:
 
 
 public:
-	Ship(Type type, const TextureHolder& textures, const FontHolder& fonts);
+	Ship(Type type, const TextureHolder& textures);
 	virtual unsigned int	getCategory() const;
     virtual sf::FloatRect	getBoundingRect() const;
 	virtual bool 			isMarkedForRemoval() const;
@@ -40,7 +40,6 @@ private:
 	void					createBullets(SceneNode& node, const TextureHolder& textures) const;
 	void					createProjectile(SceneNode& node, Projectile::Type type, float xOffset, float yOffset, const TextureHolder& textures) const;
 
-	void					updateTexts();
 
 private:
 	Type					_type;
@@ -52,7 +51,6 @@ private:
 
 	float					_travelledDistance;
 	std::size_t				_directionIndex;
-	TextNode*				_healthDisplay;
 };
 
 #endif // SHIP_H

@@ -40,8 +40,14 @@ std::vector<AsteroidData> initializeAsteroidData()
     
     data[Asteroid::Asteroid1].hitpoints = 1;
     data[Asteroid::Asteroid1].damage = 10;
-    data[Asteroid::Asteroid1].speed = 100.f;
+    data[Asteroid::Asteroid1].speed = 50.f;
     data[Asteroid::Asteroid1].texture = Textures::Asteroid;
+    
+    data[Asteroid::Asteroid2].hitpoints = 1;
+    data[Asteroid::Asteroid2].damage = 10;
+    data[Asteroid::Asteroid2].speed = 25.f;
+    data[Asteroid::Asteroid2].texture = Textures::AsteroidShard;
+    
     
     return data;
 }

@@ -38,6 +38,11 @@ sf::FloatRect Asteroid::getBoundingRect() const
     return getWorldTransform().transformRect(_sprite.getGlobalBounds());
 }
 
+bool Asteroid::isShard() const
+{
+    return _type == Asteroid2;
+}
+
 float Asteroid::getMaxSpeed() const
 {
     return Table[_type].speed;

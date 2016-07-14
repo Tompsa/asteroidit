@@ -14,7 +14,7 @@ namespace
 	const std::vector<ShipData> Table = initializeShipData();
 }
 
-Ship::Ship(Type type, const TextureHolder& textures, const FontHolder& fonts)
+Ship::Ship(Type type, const TextureHolder& textures)
 	: Entity(Table[type].hitpoints)
 	, _type(type)
 	, _sprite(textures.get(Table[type].texture))
@@ -24,7 +24,6 @@ Ship::Ship(Type type, const TextureHolder& textures, const FontHolder& fonts)
     , _isMarkedForRemoval(false)
     , _travelledDistance(0.f)
     , _directionIndex(0)
-    , _healthDisplay(nullptr)
 {
 	centerOrigin(_sprite);
     
@@ -33,12 +32,6 @@ Ship::Ship(Type type, const TextureHolder& textures, const FontHolder& fonts)
 	{
 		createBullets(node, textures);
 	};
-    
-    std::unique_ptr<TextNode> healthDisplay(new TextNode(fonts, ""));
-	_healthDisplay = healthDisplay.get();
-	attachChild(std::move(healthDisplay));
-    
-    updateTexts();
 }
 
 void Ship::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
@@ -60,9 +53,6 @@ void Ship::updateCurrent(sf::Time dt, CommandQueue& commands)
 
 	// Update enemy movement pattern; apply velocity
 	Entity::updateCurrent(dt, commands);
-
-	// Update texts
-	updateTexts();
 }
 
 unsigned int Ship::getCategory() const
@@ -152,11 +142,4 @@ void Ship::createProjectile(SceneNode& node, Projectile::Type type, float xOffse
 	projectile->setVelocity(velocity);
     projectile->setRotation(rotation);
 	node.attachChild(std::move(projectile));
-}
-
-void Ship::updateTexts()
-{
-	_healthDisplay->setString(toString(getHitpoints()) + " HP");
-	_healthDisplay->setPosition(0.f, 50.f);
-	_healthDisplay->setRotation(-getRotation());
 }

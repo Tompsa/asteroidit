@@ -23,6 +23,7 @@ class Asteroid : public Entity
         
         virtual unsigned int	getCategory() const;
         virtual sf::FloatRect	getBoundingRect() const;
+        bool                    isShard() const;
         float					getMaxSpeed() const;
         int						getDamage() const;
 

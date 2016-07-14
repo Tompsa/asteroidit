@@ -90,6 +90,7 @@ void World::loadTextures()
 	_textures.load(Textures::Space, "Media/Textures/spacebg.jpg");
 	_textures.load(Textures::Spaceship, "Media/Textures/rocket.png");
 	_textures.load(Textures::Asteroid, "Media/Textures/rock.png");
+    _textures.load(Textures::AsteroidShard, "Media/Textures/rock2.png");
 
 	_textures.load(Textures::Bullet, "Media/Textures/Bullet.png");
 }
@@ -146,7 +147,16 @@ void World::handleCollisions()
             auto& projectile = static_cast<Projectile&>(*pair.first);
             auto& asteroid = static_cast<Asteroid&>(*pair.second);
             
+            sf::Vector2f pos = asteroid.getPosition();
+            
+            if(!asteroid.isShard())
+            {            
+            addAsteroid(Asteroid::Asteroid2, pos.x, pos.y);
+            addAsteroid(Asteroid::Asteroid2, pos.x, pos.y);
+            }
+
             asteroid.damage(projectile.getDamage());
+                
             projectile.destroy();
         }
 
@@ -187,7 +197,7 @@ void World::buildScene()
 	_sceneLayers[Background]->attachChild(std::move(backgroundSprite));
 
 	// Add player's spaceship
-	std::unique_ptr<Ship> ship(new Ship(Ship::Spaceship, _textures, _fonts));
+	std::unique_ptr<Ship> ship(new Ship(Ship::Spaceship, _textures));
 	_playerShip = ship.get();
 	_playerShip->setPosition(_spawnPosition);
 	_sceneLayers[ObjectLayer]->attachChild(std::move(ship));
@@ -199,9 +209,9 @@ void World::buildScene()
 void World::addAsteroids()
 {
     for(int i = 0; i < 2 ; i++)
-        addAsteroid(Asteroid::Asteroid1, 300.f, randomInt(240));    
+        addAsteroid(Asteroid::Asteroid1, 0.f, randomInt(480));    
     for(int i = 0; i < 2 ; i++)
-        addAsteroid(Asteroid::Asteroid1, -300.f, randomInt(240));    
+        addAsteroid(Asteroid::Asteroid1, 640.f, randomInt(480));    
     
     std::sort(_asteroidSpawnPoints.begin(), _asteroidSpawnPoints.end(), [] (SpawnPoint lhs, SpawnPoint rhs)
 	{
@@ -211,7 +221,8 @@ void World::addAsteroids()
 
 void World::addAsteroid(Asteroid::Type type ,float relX, float relY)
 {
-    SpawnPoint spawn(type, _spawnPosition.x + relX, _spawnPosition.y - relY);
+    //SpawnPoint spawn(type, _spawnPosition.x + relX, _spawnPosition.y - relY);
+    SpawnPoint spawn(type, relX, relY);
 	_asteroidSpawnPoints.push_back(spawn);  
 }
 
