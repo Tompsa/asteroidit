@@ -8,6 +8,8 @@
 #include <algorithm>
 #include <iostream>
 
+using namespace std::placeholders;
+
 
 struct SpaceshipMover
 {
@@ -18,7 +20,9 @@ struct SpaceshipMover
 
 	void operator() (Ship& ship, sf::Time) const
 	{
-		ship.accelerate(velocity);
+		ship.accelerate(velocity*ship.getMaxSpeed());
+        std::cout << "X velocity "<< ship.getVelocity().x << "\n";
+        std::cout << "y velocity "<< ship.getVelocity().y << "\n";
 	}
 
 	sf::Vector2f velocity;
@@ -36,13 +40,26 @@ struct SpaceshipThruster
 	{
         float rotation = ship.getRotation();
         rotation -= 90;
+        
+        //sf::Vector2f currentVelocity = ship.getVelocity();
+        //if(std::abs(currentVelocity.x) <= ship.getMaxSpeed() || std::abs(currentVelocity.y) <= ship.getMaxSpeed())
+        //{
+            //const float approachRate = 200.f;
 
-        sf::Vector2f velocity;
-        velocity.x += (float)std::cos(rotation * (3.1415926 / 180.0f))*force;
-        velocity.y += (float)std::sin(rotation * (3.1415926 / 180.0f))*force;
-        ship.accelerate(velocity);
-        std::cout << "X velocity "<< ship.getVelocity().x << "\n";
-        std::cout << "y velocity "<< ship.getVelocity().y << "\n";
+            //sf::Vector2f newVelocity = unitVector(approachRate * dt.asSeconds() * _targetDirection + getVelocity());
+            //newVelocity *= getMaxSpeed();
+            //float angle = std::atan2(newVelocity.y, newVelocity.x);
+
+            //setRotation(toDegree(angle) + 90.f);
+            //setVelocity(newVelocity);
+        
+            sf::Vector2f velocity;
+            velocity.x = (float)std::cos(rotation * (3.1415926 / 180.0f))*force;
+            velocity.y = (float)std::sin(rotation * (3.1415926 / 180.0f))*force;
+            ship.accelerate(velocity);
+        //}
+        //std::cout << "X velocity "<< ship.getVelocity().x << "\n";
+        //std::cout << "y velocity "<< ship.getVelocity().y << "\n";
 	}
 
 	float force;
@@ -64,20 +81,21 @@ struct SpaceshipRotator
 };
 
 Player::Player()
+: _currentMissionStatus(MissionRunning)
 {
 	// Set initial key bindings
 	_keyBinding[sf::Keyboard::Left] = TurnLeft;
 	_keyBinding[sf::Keyboard::Right] = TurnRight;
 	_keyBinding[sf::Keyboard::Up] = Accelerate;
-	_keyBinding[sf::Keyboard::Down] = SlowDown;
-	//_keyBinding[sf::Keyboard::Space] = Shoot;
+	_keyBinding[sf::Keyboard::Down] = Warp;
+	_keyBinding[sf::Keyboard::Space] = Fire;
 
 	// Set initial action bindings
 	initializeActions();
 
 	// Assign all categories to player's aircraft
 	FOREACH(auto& pair, _actionBinding)
-		pair.second.category = Category::PlayerSpaceShip;
+		pair.second.category = Category::PlayerSpaceship;
 }
 
 void Player::handleEvent(const sf::Event& event, CommandQueue& commands)
@@ -128,18 +146,24 @@ sf::Keyboard::Key Player::getAssignedKey(Action action) const
 	return sf::Keyboard::Unknown;
 }
 
+void Player::setMissionStatus(MissionStatus status)
+{
+	_currentMissionStatus = status;
+}
+
+Player::MissionStatus Player::getMissionStatus() const
+{
+	return _currentMissionStatus;
+}
+
+
 void Player::initializeActions()
 {
-	const float playerSpeed = 10.f;
-
-	//_actionBinding[TurnLeft].action = derivedAction<Ship>(SpaceshipMover(-playerSpeed, 0.f));
     _actionBinding[TurnLeft].action = derivedAction<Ship>(SpaceshipRotator(-10));
-	//_actionBinding[TurnRight].action = derivedAction<Ship>(SpaceshipMover(+playerSpeed, 0.f));
     _actionBinding[TurnRight].action = derivedAction<Ship>(SpaceshipRotator(10));
-	//_actionBinding[Accelerate].action = derivedAction<Ship>(SpaceshipMover(0.f, -playerSpeed));
-    _actionBinding[Accelerate].action = derivedAction<Ship>(SpaceshipThruster(playerSpeed));
-	//_actionBinding[SlowDown].action = derivedAction<Ship>(SpaceshipMover(0.f, +playerSpeed));
-    _actionBinding[SlowDown].action = derivedAction<Ship>(SpaceshipThruster(-playerSpeed));
+    _actionBinding[Accelerate].action = derivedAction<Ship>(SpaceshipThruster(+10));
+    _actionBinding[Warp].action = derivedAction<Ship>([](Ship& a, sf::Time){ a.warp(); });
+	_actionBinding[Fire].action = derivedAction<Ship>([](Ship& a, sf::Time){ a.fire(); });
 }
 
 bool Player::isRealtimeAction(Action action)
@@ -149,8 +173,7 @@ bool Player::isRealtimeAction(Action action)
 	case TurnLeft:
 	case TurnRight:
 	case Accelerate:
-	case SlowDown:
-	//case Shoot:
+	case Fire:
 		return true;
 
 	default:

@@ -3,9 +3,10 @@
 
 GameState::GameState(StateStack& stack, Context context)
 : State(stack, context)
-, _world(*context.window)
+, _world(*context.window, *context.fonts)
 , _player(*context.player)
 {
+	_player.setMissionStatus(Player::MissionRunning);
 }
 
 void GameState::draw()
@@ -16,6 +17,17 @@ void GameState::draw()
 bool GameState::update(sf::Time dt)
 {
 	_world.update(dt);
+
+	if (!_world.hasAlivePlayer())
+	{
+		_player.setMissionStatus(Player::MissionFailure);
+		requestStackPush(States::GameOver);
+	}
+	//else if (_world.hasPlayerReachedEnd())
+	//{
+		//_player.setMissionStatus(Player::MissionSuccess);
+		//requestStackPush(States::GameOver);
+	//}
 
 	CommandQueue& commands = _world.getCommandQueue();
 	_player.handleRealtimeInput(commands);

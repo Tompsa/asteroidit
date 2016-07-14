@@ -6,6 +6,7 @@
 #include "SceneNode.h"
 #include "SpriteNode.h"
 #include "Ship.h"
+#include "Asteroid.h"
 #include "CommandQueue.h"
 #include "Command.h"
 
@@ -23,41 +24,71 @@ namespace sf
 
 class World : private sf::NonCopyable
 {
-public:
-	explicit World(sf::RenderWindow& window);
-	void update(sf::Time dt);
-	void draw();
+	public:
+		explicit							World(sf::RenderWindow& window, FontHolder& fonts);
+		void								update(sf::Time dt);
+		void								draw();
+		
+		CommandQueue&						getCommandQueue();
 
-	CommandQueue& getCommandQueue();
+		bool 								hasAlivePlayer() const;
 
-private:
-	void loadTextures();
-	void buildScene();
-	void adaptPlayerPosition();
-	void adaptPlayerVelocity();
 
-private:
-	enum Layer
-	{
-		Background,
-		ObjectLayer,
-		LayerCount
-	};
+	private:
+		void								loadTextures();
+		void								adaptPlayerPosition();
+		void								handleCollisions();
+		
+		void								buildScene();
+        void                                addAsteroids();
+        void                                addAsteroid(Asteroid::Type type, float relX, float relY);
+        void                                spawnAsteroids();
+        void                                adaptAsteroidPosition();
+		sf::FloatRect						getViewBounds() const;
+		sf::FloatRect						getBattlefieldBounds() const;
 
-private:
-	sf::RenderWindow& _window;
-	sf::View _worldView;
-	TextureHolder _textures;
 
-	SceneNode _sceneGraph;
-	std::array<SceneNode*, LayerCount> _sceneLayers;
-	CommandQueue _commandQueue;
+	private:
+		enum Layer
+		{
+			Background,
+			ObjectLayer,
+			LayerCount
+		};
 
-	sf::FloatRect _worldBounds;
-	sf::Vector2f _spawnPosition;
-	float _scrollSpeed;
-	Ship* _playerShip;
+		struct SpawnPoint 
+		{
+			SpawnPoint(Asteroid::Type type, float x, float y)
+			: type(type)
+            , x(x)
+			, y(y)
 
+			{
+			}
+
+            Asteroid::Type type;
+			float x;
+			float y;
+
+		};
+
+
+	private:
+		sf::RenderWindow&					_window;
+		sf::View							_worldView;
+		TextureHolder						_textures;
+		FontHolder&							_fonts;
+
+		SceneNode							_sceneGraph;
+		std::array<SceneNode*, LayerCount>	_sceneLayers;
+		CommandQueue						_commandQueue;
+
+		sf::FloatRect						_worldBounds;
+		sf::Vector2f						_spawnPosition;
+		Ship*							    _playerShip;
+
+		std::vector<SpawnPoint>				_asteroidSpawnPoints;
+        std::vector<Asteroid*>				_activeAsteroids;
 };
 
 #endif //WORLD_H

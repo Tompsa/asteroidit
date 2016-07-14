@@ -15,12 +15,13 @@ SettingsState::SettingsState(StateStack& stack, Context context)
 	addButtonLabel(Player::TurnLeft,  150.f, "Turn Left", context);
 	addButtonLabel(Player::TurnRight, 200.f, "Turn Right", context);
 	addButtonLabel(Player::Accelerate,  250.f, "Accelerate", context);
-	addButtonLabel(Player::SlowDown,  300.f, "Slow down", context);
+	addButtonLabel(Player::Warp,  300.f, "Warp", context);
+	addButtonLabel(Player::Fire, 350.f, "Fire", context);
 
 	updateLabels();
 
 	auto backButton = std::make_shared<GUI::Button>(*context.fonts, *context.textures);
-	backButton->setPosition(80.f, 375.f);
+	backButton->setPosition(80.f, 420.f);
 	backButton->setText("Back");
 	backButton->setCallback(std::bind(&SettingsState::requestStackPop, this));
 

@@ -17,9 +17,17 @@ public:
 		TurnLeft,
 		TurnRight,
 		Accelerate,
-		SlowDown,
+		Warp,
+		Fire,
 		ActionCount
 	};
+    
+    enum MissionStatus
+    {
+        MissionRunning,
+        MissionSuccess,
+        MissionFailure
+    };
 
 public:
 	Player();
@@ -28,6 +36,9 @@ public:
 
 	void assignKey(Action action, sf::Keyboard::Key key);
 	sf::Keyboard::Key getAssignedKey(Action action) const;
+    
+    void 					setMissionStatus(MissionStatus status);
+	MissionStatus 			getMissionStatus() const;
 
 private:
 	void initializeActions();
@@ -36,6 +47,7 @@ private:
 private:
 	std::map<sf::Keyboard::Key, Action> _keyBinding;
 	std::map<Action, Command> _actionBinding;
+    MissionStatus _currentMissionStatus;
 
 };
 
