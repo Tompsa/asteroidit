@@ -51,8 +51,9 @@ void Ship::updateCurrent(sf::Time dt, CommandQueue& commands)
 	// Check if bullets fired
 	checkProjectileLaunch(dt, commands);
 
-	// Update enemy movement pattern; apply velocity
+	// Update enemy movement pattern; apply velocity & friction
 	Entity::updateCurrent(dt, commands);
+    setVelocity((1-0.025)*getVelocity().x, (1-0.025)*getVelocity().y);
 }
 
 unsigned int Ship::getCategory() const

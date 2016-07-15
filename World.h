@@ -9,6 +9,7 @@
 #include "Asteroid.h"
 #include "CommandQueue.h"
 #include "Command.h"
+#include "TextNode.h"
 
 #include <SFML/System/NonCopyable.hpp>
 #include <SFML/Graphics/View.hpp>
@@ -46,6 +47,8 @@ class World : private sf::NonCopyable
         void                                adaptAsteroidPosition();
 		sf::FloatRect						getViewBounds() const;
 		sf::FloatRect						getBattlefieldBounds() const;
+        
+        void                                updateTexts();
 
 
 	private:
@@ -86,9 +89,14 @@ class World : private sf::NonCopyable
 		sf::FloatRect						_worldBounds;
 		sf::Vector2f						_spawnPosition;
 		Ship*							    _playerShip;
+        int                                 _playerScore;
+        int                                 _playerLives;
 
 		std::vector<SpawnPoint>				_asteroidSpawnPoints;
         std::vector<Asteroid*>				_activeAsteroids;
+        
+        TextNode*                           _scoreDisplay;
+        TextNode*                           _livesDisplay;
 };
 
 #endif //WORLD_H

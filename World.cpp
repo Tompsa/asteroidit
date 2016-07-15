@@ -22,11 +22,20 @@ World::World(sf::RenderWindow& window, FontHolder& fonts)
 	, _worldBounds(0.f, 0.f, _worldView.getSize().x, _worldView.getSize().y)
 	, _spawnPosition(_worldView.getSize().x / 2.f, _worldBounds.height - _worldView.getSize().y / 2.f)
 	, _playerShip(nullptr)
+    , _playerScore(0)
+    , _playerLives(3)
     , _activeAsteroids()
+    , _scoreDisplay(nullptr)
+    , _livesDisplay(nullptr)
 {
 	loadTextures();
 	buildScene();
+    
+    std::unique_ptr<TextNode> scoreDisplay(new TextNode(fonts, ""));
+	_scoreDisplay = scoreDisplay.get();
+	_sceneLayers[ObjectLayer]->attachChild(std::move(scoreDisplay));
 	
+    updateTexts();
 }
 
 void World::update(sf::Time dt)
@@ -67,6 +76,9 @@ void World::update(sf::Time dt)
 	_sceneGraph.update(dt, _commandQueue);
 	adaptPlayerPosition();
     adaptAsteroidPosition();
+    
+    // Update score display
+    updateTexts();
 }
 
 void World::draw()
@@ -156,6 +168,7 @@ void World::handleCollisions()
             }
 
             asteroid.damage(projectile.getDamage());
+            _playerScore += 100;
                 
             projectile.destroy();
         }
@@ -311,4 +324,10 @@ sf::FloatRect World::getBattlefieldBounds() const
 	bounds.height += 100.f;
 
 	return bounds;
+}
+
+void World::updateTexts()
+{
+    _scoreDisplay->setString(toString(_playerScore));
+    _scoreDisplay->setPosition(_worldView.getSize().x / 2.f, 50.f);
 }
