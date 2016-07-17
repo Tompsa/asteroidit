@@ -34,6 +34,10 @@ World::World(sf::RenderWindow& window, FontHolder& fonts)
     std::unique_ptr<TextNode> scoreDisplay(new TextNode(fonts, ""));
 	_scoreDisplay = scoreDisplay.get();
 	_sceneLayers[ObjectLayer]->attachChild(std::move(scoreDisplay));
+    
+    std::unique_ptr<TextNode> livesDisplay(new TextNode(fonts, ""));
+	_livesDisplay = livesDisplay.get();
+	_sceneLayers[ObjectLayer]->attachChild(std::move(livesDisplay));
 	
     updateTexts();
 }
@@ -150,7 +154,13 @@ void World::handleCollisions()
             auto& player = static_cast<Ship&>(*pair.first);
             auto& asteroid = static_cast<Asteroid&>(*pair.second);
             
-            player.damage(asteroid.getHitpoints());
+            if(_playerLives > 0)
+            {
+                _playerShip->setPosition(_spawnPosition);
+                _playerLives--;
+            }
+            else
+                player.damage(asteroid.getHitpoints());
             asteroid.destroy();
         }
         
@@ -330,4 +340,7 @@ void World::updateTexts()
 {
     _scoreDisplay->setString(toString(_playerScore));
     _scoreDisplay->setPosition(_worldView.getSize().x / 2.f, 50.f);
+    
+    _livesDisplay->setString("Lives: " + toString(_playerLives));
+    _livesDisplay->setPosition(_worldView.getSize().x / 2.f, 100.f);
 }
