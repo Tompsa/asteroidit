@@ -108,7 +108,7 @@ void World::loadTextures()
 	_textures.load(Textures::Asteroid, "Media/Textures/rock.png");
     _textures.load(Textures::AsteroidShard, "Media/Textures/rock2.png");
 
-	_textures.load(Textures::Bullet, "Media/Textures/Bullet.png");
+	_textures.load(Textures::Bullet, "Media/Textures/shot.png");
 }
 
 bool matchesCategories(SceneNode::Pair& colliders, Category::Type type1, Category::Type type2)

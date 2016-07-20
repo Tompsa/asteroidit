@@ -28,4 +28,4 @@ $(EXE): $(OBJECTS) ; $(CC) $(OBJECTS) -o $@ $(LIBS)
     
 .cpp.o: ; $(CC) $(CFLAGS) $< -o $@   
     
-clean: ; rm -f $(OBJECTS)
+clean: ; rm -f $(OBJECTS) $(EXE)
