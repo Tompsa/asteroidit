@@ -27,6 +27,8 @@ public:
     virtual sf::FloatRect	getBoundingRect() const;
 	virtual bool 			isMarkedForRemoval() const;
 	float					getMaxSpeed() const;
+    void                    setGodmode(char var);
+    bool                    isGod();
 
 	void 					fire();
     void                    warp();
@@ -51,6 +53,8 @@ private:
 
 	float					_travelledDistance;
 	std::size_t				_directionIndex;
+    sf::Time                _invisTimer;
+    bool                    _godmode;                   
 };
 
 #endif // SHIP_H

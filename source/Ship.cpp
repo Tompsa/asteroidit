@@ -6,6 +6,7 @@
 
 #include <SFML/Graphics/RenderTarget.hpp>
 #include <SFML/Graphics/RenderStates.hpp>
+#include <SFML/Graphics/CircleShape.hpp>
 
 #include <cmath>
 
@@ -24,6 +25,8 @@ Ship::Ship(Type type, const TextureHolder& textures)
     , _isMarkedForRemoval(false)
     , _travelledDistance(0.f)
     , _directionIndex(0)
+    , _invisTimer()
+    , _godmode(0)
 {
 	centerOrigin(_sprite);
     
@@ -37,6 +40,22 @@ Ship::Ship(Type type, const TextureHolder& textures)
 void Ship::drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const
 {
 	target.draw(_sprite, states);
+    
+    // Draw forcefield after respawn
+    if(_godmode)
+    {
+        sf::Vector2f pos = this->getPosition();
+        pos.x -= 16;
+        pos.y -= 16;
+        sf::CircleShape shape;
+        shape.setPosition(pos);
+        shape.setRadius(16); 
+        shape.setFillColor(sf::Color::Transparent);
+        shape.setOutlineColor(sf::Color::Green);
+        shape.setOutlineThickness(1.f);
+
+        target.draw(shape);    
+    }
 }
 
 void Ship::updateCurrent(sf::Time dt, CommandQueue& commands)
@@ -54,6 +73,15 @@ void Ship::updateCurrent(sf::Time dt, CommandQueue& commands)
 	// Update enemy movement pattern; apply velocity & friction
 	Entity::updateCurrent(dt, commands);
     setVelocity((1-0.025)*getVelocity().x, (1-0.025)*getVelocity().y);
+    
+    // Ship is invulnerable after respawn
+    if(_godmode)
+        _invisTimer += dt;
+    if(_invisTimer >= sf::seconds(3))
+    {
+        _invisTimer = sf::Time::Zero;
+        _godmode = 0;
+    }
 }
 
 unsigned int Ship::getCategory() const
@@ -144,3 +172,14 @@ void Ship::createProjectile(SceneNode& node, Projectile::Type type, float xOffse
     projectile->setRotation(rotation);
 	node.attachChild(std::move(projectile));
 }
+
+void Ship::setGodmode(char var)
+{
+    _godmode = var;
+}
+
+bool Ship::isGod()
+{
+    return _godmode;
+}
+

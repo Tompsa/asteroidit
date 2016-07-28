@@ -55,8 +55,6 @@ void World::update(sf::Time dt)
 	_sceneGraph.removeWrecks();
     spawnAsteroids();
     
-    
-    
     // Command that stores all asteroids on screen in _activeAsteroids
     Command asteroidCollector;
 	asteroidCollector.category = Category::SpaceDebris;
@@ -153,14 +151,17 @@ void World::handleCollisions()
         {
             auto& player = static_cast<Ship&>(*pair.first);
             auto& asteroid = static_cast<Asteroid&>(*pair.second);
-            
-            if(_playerLives > 0)
+            if(!_playerShip->isGod())
             {
-                _playerShip->setPosition(_spawnPosition);
-                _playerLives--;
+                if(_playerLives > 0)
+                {
+                    _playerShip->setPosition(_spawnPosition);
+                    _playerShip->setGodmode(1);
+                    _playerLives--;
+                }
+                else
+                    player.damage(asteroid.getHitpoints());
             }
-            else
-                player.damage(asteroid.getHitpoints());
             asteroid.destroy();
         }
         
@@ -328,7 +329,7 @@ sf::FloatRect World::getViewBounds() const
 
 sf::FloatRect World::getBattlefieldBounds() const
 {
-	// Return view bounds + some area at top, where enemies spawn
+	// Return view bounds + some area at top
 	sf::FloatRect bounds = getViewBounds();
 	bounds.top -= 100.f;
 	bounds.height += 100.f;
