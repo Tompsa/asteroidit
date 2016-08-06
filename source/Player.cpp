@@ -2,11 +2,11 @@
 #include "CommandQueue.h"
 #include "Ship.h"
 #include "Foreach.h"
+#include "Utility.h"
 
 #include <map>
 #include <string>
 #include <algorithm>
-#include <iostream>
 
 using namespace std::placeholders;
 
@@ -21,8 +21,6 @@ struct SpaceshipMover
 	void operator() (Ship& ship, sf::Time) const
 	{
 		ship.accelerate(velocity*ship.getMaxSpeed());
-        std::cout << "X velocity "<< ship.getVelocity().x << "\n";
-        std::cout << "y velocity "<< ship.getVelocity().y << "\n";
 	}
 
 	sf::Vector2f velocity;
@@ -41,25 +39,10 @@ struct SpaceshipThruster
         float rotation = ship.getRotation();
         rotation -= 90;
         
-        //sf::Vector2f currentVelocity = ship.getVelocity();
-        //if(std::abs(currentVelocity.x) <= ship.getMaxSpeed() || std::abs(currentVelocity.y) <= ship.getMaxSpeed())
-        //{
-            //const float approachRate = 200.f;
-
-            //sf::Vector2f newVelocity = unitVector(approachRate * dt.asSeconds() * _targetDirection + getVelocity());
-            //newVelocity *= getMaxSpeed();
-            //float angle = std::atan2(newVelocity.y, newVelocity.x);
-
-            //setRotation(toDegree(angle) + 90.f);
-            //setVelocity(newVelocity);
-        
-            sf::Vector2f velocity;
-            velocity.x = (float)std::cos(rotation * (3.1415926 / 180.0f))*force;
-            velocity.y = (float)std::sin(rotation * (3.1415926 / 180.0f))*force;
-            ship.accelerate(velocity);
-        //}
-        //std::cout << "X velocity "<< ship.getVelocity().x << "\n";
-        //std::cout << "y velocity "<< ship.getVelocity().y << "\n";
+        sf::Vector2f velocity;
+        velocity.x = (float)std::cos(toRadian(rotation))*force;
+        velocity.y = (float)std::sin(toRadian(rotation))*force;
+        ship.accelerate(velocity);
 	}
 
 	float force;

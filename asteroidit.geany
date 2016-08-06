@@ -24,7 +24,7 @@ long_line_column=72
 
 [files]
 current_page=0
-FILE_NAME_0=408;Make;0;EUTF-8;1;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fmakefile;0;4
+FILE_NAME_0=484;Make;0;EUTF-8;1;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fmakefile;0;4
 FILE_NAME_1=509;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FApplication.h;0;4
 FILE_NAME_2=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FAsteroid.h;0;4
 FILE_NAME_3=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FButton.h;0;4
@@ -56,7 +56,7 @@ FILE_NAME_28=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2
 FILE_NAME_29=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FStateStack.h;0;4
 FILE_NAME_30=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FTextNode.h;0;4
 FILE_NAME_31=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FTitleState.h;0;4
-FILE_NAME_32=0;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FUtility.h;0;4
+FILE_NAME_32=471;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FUtility.h;0;4
 FILE_NAME_33=0;None;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FUtility.inl;0;4
 FILE_NAME_34=2134;C;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Finclude%2FWorld.h;0;4
 FILE_NAME_35=1481;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FApplication.cpp;0;4
@@ -75,18 +75,18 @@ FILE_NAME_47=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%
 FILE_NAME_48=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FMenuState.cpp;0;4
 FILE_NAME_49=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FParallelTask.cpp;0;4
 FILE_NAME_50=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FPauseState.cpp;0;4
-FILE_NAME_51=2910;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FPlayer.cpp;0;4
+FILE_NAME_51=1566;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FPlayer.cpp;0;4
 FILE_NAME_52=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FProjectile.cpp;0;4
 FILE_NAME_53=87;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FSceneNode.cpp;0;4
 FILE_NAME_54=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FSettingsState.cpp;0;4
-FILE_NAME_55=251;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FShip.cpp;0;4
+FILE_NAME_55=1574;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FShip.cpp;0;4
 FILE_NAME_56=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FSpriteNode.cpp;0;4
 FILE_NAME_57=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FState.cpp;0;4
 FILE_NAME_58=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FStateStack.cpp;0;4
 FILE_NAME_59=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FTextNode.cpp;0;4
 FILE_NAME_60=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FTitleState.cpp;0;4
-FILE_NAME_61=0;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FUtility.cpp;0;4
-FILE_NAME_62=5055;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FWorld.cpp;0;4
+FILE_NAME_61=3087;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FUtility.cpp;0;4
+FILE_NAME_62=4654;C++;0;EUTF-8;0;1;0;%2Fhome%2Ftommi%2Frepos%2Fasteroidit%2Fsource%2FWorld.cpp;0;4
 
 [VTE]
 last_dir=/home/tommi/repos/asteroidit
@@ -105,3 +105,8 @@ EX_00_WD=
 NF_03_LB=Make Clean
 NF_03_CM=make clean
 NF_03_WD=
+
+[editor]
+line_wrapping=false
+line_break_column=72
+auto_continue_multiline=true
