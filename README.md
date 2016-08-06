@@ -11,6 +11,6 @@ Tested on Ubuntu 16.04
   - version 2.3.2 was used at time of writing
 
 ##Building in Linux
-´´´
+```shell
 make all
-´´´
+```
